@@ -1,15 +1,17 @@
-import AppBar from '@mui/material/AppBar';
-import Box from '@mui/material/Box';
-import Typography from '@mui/material/Typography';
-import {  CssBaseline } from '@mui/material';
-import { Toolbar } from '@mui/material'
-import ComponentsDrawer from '../ComponentsDrawer';
+import AppBar from "@mui/material/AppBar";
+import Box from "@mui/material/Box";
+import Typography from "@mui/material/Typography";
+import { CssBaseline, Toolbar } from "@mui/material";
+import ComponentsDrawer from "../ComponentsDrawer";
 
 const Navigation = () => {
   return (
-    <Box sx={{ display: 'flex' }}>
+    <Box sx={{ display: "flex" }}>
       <CssBaseline />
-      <AppBar position="fixed" sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}>
+      <AppBar
+        position="fixed"
+        sx={{ zIndex: (theme) => theme.zIndex.drawer + 1 }}
+      >
         <Toolbar>
           <Typography variant="h6" noWrap component="div">
             Awesome Form Builder
@@ -19,6 +21,6 @@ const Navigation = () => {
       <ComponentsDrawer />
     </Box>
   );
-}
+};
 
-export default Navigation
+export default Navigation;

@@ -1,9 +1,7 @@
-import React from 'react'
+import React from "react";
 
 const Toggle = () => {
-  return (
-    <div>Toggle</div>
-  )
-}
+  return <div>Toggle</div>;
+};
 
-export default Toggle
+export default Toggle;

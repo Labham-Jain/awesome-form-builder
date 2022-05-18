@@ -1,5 +1,5 @@
-import { createTheme } from '@mui/material/styles';
-import { blue, common, green, purple } from '@mui/material/colors';
+import { createTheme } from "@mui/material/styles";
+import { blue, common, green, purple } from "@mui/material/colors";
 
 const theme = createTheme({
   palette: {
@@ -9,9 +9,9 @@ const theme = createTheme({
     },
     secondary: {
       main: common.white,
-      contrastText: blue[500]
+      contrastText: blue[500],
     },
   },
 });
 
-export default theme
+export default theme;

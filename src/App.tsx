@@ -1,7 +1,7 @@
-import { BrowserRouter as Router, Routes, Route } from "react-router-dom"
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
 import Navigation from "./components/Navigation";
 import Home from "./pages/Home";
-import './app.css'
+import "./app.css";
 import { ThemeProvider } from "@mui/material";
 import theme from "./utils/theme";
 import ElementModelContext from "./Context/ElementModelContext";
@@ -14,13 +14,13 @@ const App = () => {
           <ElementModelContext>
             <Navigation />
             <Routes>
-              <Route path="/" element={<Home />}/>
+              <Route path="/" element={<Home />} />
             </Routes>
           </ElementModelContext>
         </FormContext>
       </Router>
     </ThemeProvider>
-  )
-}
+  );
+};
 
-export default App
+export default App;
