@@ -1,15 +1,11 @@
 import {
   Mail,
   Keyboard,
-  KeyboardAlt,
   Language,
   Numbers,
-  Palette,
   Check,
-  Adjust,
   Texture,
   ExpandMore,
-  TouchApp,
   Key,
 } from "@mui/icons-material";
 import {
@@ -23,15 +19,18 @@ import {
   Toolbar,
 } from "@mui/material";
 import { useContext } from "react";
+import { useLocation } from "react-router-dom";
 import {
   ElementModelCtx,
   ElementTypes,
 } from "../../Context/ElementModelContext";
+import { ToggleOn } from "@mui/icons-material";
 
 const drawerWidth = 240;
 
 const ComponentsDrawer = () => {
   const { setElementType, setModelTitle } = useContext(ElementModelCtx);
+  const location = useLocation();
 
   const setElementModal = (
     type: ElementTypes,
@@ -40,6 +39,7 @@ const ComponentsDrawer = () => {
     setModelTitle(modalTitle);
     setElementType(type);
   };
+  if (location.pathname !== "/") return null;
   return (
     <Drawer
       variant="permanent"
@@ -120,9 +120,9 @@ const ComponentsDrawer = () => {
             sx={{ pl: 4 }}
           >
             <ListItemIcon>
-              <Adjust />
+              <ToggleOn />
             </ListItemIcon>
-            <ListItemText>Radio</ListItemText>
+            <ListItemText>Toggle</ListItemText>
           </ListItemButton>
           <ListItemButton
             onClick={() => setElementModal("input.textarea")}

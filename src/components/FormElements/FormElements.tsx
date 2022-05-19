@@ -5,26 +5,48 @@ import {
   FormControlLabel,
   FormGroup,
   Tooltip,
-  Typography,
 } from "@mui/material";
 import { Controller, useForm } from "react-hook-form";
 import { nanoid } from "nanoid";
 import Input from "../Input";
-import { FormCtx } from "../../Context/FormContext";
+import { FormCtx, FormValue } from "../../Context/FormContext";
 import { useContext } from "react";
-import { Add } from "@mui/icons-material";
+import SelectElement from "./SelectElement";
 
 interface Props {
   element: "text" | "select" | "checkbox" | "toggle";
   valueType: string;
 }
+type ValuePair = {
+  label: string;
+  value: string;
+};
 
-const InputText = ({ element, valueType }: Props) => {
-  const { handleSubmit, control } = useForm();
+const FormElements = ({ element, valueType }: Props) => {
+  const { handleSubmit, control, register } = useForm({mode: 'onChange'});
   const { setForm } = useContext(FormCtx);
   const onSubmit = (data: any) => {
+    const options: { [x: string]: ValuePair }[] = data.config?.options;
+    
+    const newConfig: FormValue["fields"][0]["config"] = {
+      options: [],
+    };
+
+    if(options){
+      const keys = Object.keys(options);
+  
+      keys.forEach((key) => {
+        // @ts-ignore
+        const option: ValuePair = options[key];
+        // validate empty values
+        if (option.label === "" || option.value === "") return;
+        // put in object
+        newConfig.options.push(option);
+      });
+    }
     const value = {
       ...data,
+      config: newConfig,
       id: nanoid(12),
       type: valueType,
       elementType: element,
@@ -53,6 +75,12 @@ const InputText = ({ element, valueType }: Props) => {
             label="Name"
             type="text"
             required
+            rules={{
+              pattern: {
+                value: /^[\d]*[a-z_][a-z\d_]*$/g,
+                message: "Only a-z, 0-9, _ are allowed!"
+              }
+            }}
           />
         </Box>
         <Box sx={{ width: "50%" }}>
@@ -65,32 +93,7 @@ const InputText = ({ element, valueType }: Props) => {
             />
           ) : null}
         </Box>
-        {element === "select" ? (
-          <>
-            <Box
-              sx={{
-                display: "flex",
-                alignItems: "center",
-                justifyContent: "space-between",
-              }}
-            >
-              <Typography fontSize="22px">Options</Typography>
-              <Button
-                color="primary"
-                variant="contained"
-                sx={{
-                  minWidth: "unset",
-                  width: "30px",
-                  height: "30px",
-                  borderRadius: "50%",
-                }}
-              >
-                <Add />
-              </Button>
-            </Box>
-            <Box></Box>
-          </>
-        ) : null}
+        {element === "select" ? <SelectElement register={register} /> : null}
         <Controller
           name={element === "checkbox" ? "checked" : "required"}
           control={control}
@@ -127,4 +130,4 @@ const InputText = ({ element, valueType }: Props) => {
   );
 };
 
-export default InputText;
+export default FormElements;

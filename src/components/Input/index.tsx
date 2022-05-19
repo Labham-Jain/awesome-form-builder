@@ -1,6 +1,6 @@
 import { HelpOutline } from "@mui/icons-material";
-import { TextField, Tooltip } from "@mui/material";
-import { Control, Controller } from "react-hook-form";
+import { TextField, Tooltip, Typography } from "@mui/material";
+import { Control, Controller, ControllerProps } from "react-hook-form";
 
 interface Props {
   control: Control;
@@ -8,19 +8,23 @@ interface Props {
   label: string;
   type: string;
   required?: boolean;
+  rules?: ControllerProps['rules']
 }
 
-const Input = ({ control, tooltipText, label, type, required }: Props) => {
+const Input = ({ control, tooltipText, label, type, required, rules }: Props) => {
   return (
     <Controller
       name={label.toLowerCase()}
       control={control}
-      render={({ field: { value = "", ...args } }) => (
+      rules={rules}
+      render={({ field: { value = "", ...args }, fieldState: {error} }) => (
         <TextField
           variant="outlined"
           label={label}
           type={type}
           required={required}
+          helperText={error?.message}
+          error={Boolean(error?.message)}
           InputProps={{
             endAdornment: (
               <Tooltip title={tooltipText} placement="top">

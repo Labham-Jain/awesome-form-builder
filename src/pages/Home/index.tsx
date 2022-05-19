@@ -1,22 +1,21 @@
-import { Delete } from "@mui/icons-material";
+import { Assignment, Delete } from "@mui/icons-material";
 import {
   Box,
   Button,
   Card,
-  Checkbox,
-  FormControlLabel,
-  Select,
-  TextField,
   Typography,
   useTheme,
 } from "@mui/material";
+import { nanoid } from "nanoid";
+import { useSnackbar } from "notistack";
 import { ChangeEvent, useContext } from "react";
+import API from "../../api";
 import { FormCtx } from "../../Context/FormContext";
-
+import GetField from "./GetField";
 const Home = () => {
   const theme = useTheme();
+  const snackbar = useSnackbar()
   const { form, setForm } = useContext(FormCtx);
-
   const removeElement = (id: string) => {
     const filteredForm = form.fields.filter((element) => element.id !== id);
     setForm((prevForm) => ({ title: prevForm.title, fields: filteredForm }));
@@ -24,23 +23,27 @@ const Home = () => {
 
   const saveFrom = () => {
     const fields = form.fields.map(
-      ({ id, name, label, required, type, config }) => ({
+      ({ id, name, label, required, type, config, elementType, }) => ({
         name,
         id,
         label,
         required: required === undefined ? true : required,
         type: type.toUpperCase(),
         config,
+        elementType
       })
     );
     const data = { title: form.title, fields };
-    // console.log(data);
+    API.post('form', {json: data}).then((result) => {
+      snackbar.enqueueSnackbar("Successfully saved form!", {variant: 'success'})
+    })
   };
 
   const onTitleChange = (event: ChangeEvent<HTMLInputElement>) => {
     const value = event.target.value;
     setForm((prev) => ({ ...prev, title: value }));
   };
+
 
   if (!form.fields.length) return null;
   return (
@@ -85,47 +88,7 @@ const Home = () => {
             }}
           >
             {form.fields.map((element) => (
-              <Box
-                sx={{
-                  display: "flex",
-                  gap: 1,
-                  alignItems: "center",
-                  width: "100%",
-                  justifyContent: "space-between",
-                }}
-              >
-                {element.elementType === "checkbox" ? (
-                  <FormControlLabel
-                    control={<Checkbox />}
-                    name={element.name}
-                    label={element.label}
-                  />
-                ) : null}
-                {element.elementType === "text" ? (
-                  <TextField
-                    label={element.label}
-                    name={element.name}
-                    type={element.type}
-                  />
-                ) : null}
-                {element.elementType === "select" ? (
-                  <Select label={element.label} name={element.name} />
-                ) : null}
-                {element.elementType === "toggle" ? (
-                  <TextField
-                    label={element.label}
-                    name={element.name}
-                    type={element.type}
-                  />
-                ) : null}
-                <Button
-                  color="error"
-                  sx={{ width: "40px", height: "40px", minWidth: "unset" }}
-                  onClick={() => removeElement(element.id)}
-                >
-                  <Delete />
-                </Button>
-              </Box>
+              <GetField element={element} removeElement={removeElement} key={nanoid(12)}/>
             ))}
             <Button color="primary" variant="contained" sx={{ marginTop: 2 }}>
               Submit
@@ -138,6 +101,7 @@ const Home = () => {
           Save Form
         </Button>
       </Box>
+      
     </Box>
   );
 };

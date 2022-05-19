@@ -6,19 +6,27 @@ import { ThemeProvider } from "@mui/material";
 import theme from "./utils/theme";
 import ElementModelContext from "./Context/ElementModelContext";
 import FormContext from "./Context/FormContext";
+import Forms from "./pages/Forms";
+import { SnackbarProvider } from "notistack";
+import Form from "./pages/Form";
 const App = () => {
   return (
     <ThemeProvider theme={theme}>
-      <Router>
-        <FormContext>
-          <ElementModelContext>
-            <Navigation />
-            <Routes>
-              <Route path="/" element={<Home />} />
-            </Routes>
-          </ElementModelContext>
-        </FormContext>
-      </Router>
+      {/* @ts-ignore */}
+      <SnackbarProvider>
+        <Router>
+          <FormContext>
+            <ElementModelContext>
+              <Navigation />
+              <Routes>
+                <Route path="/" element={<Home />} />
+                <Route path="/forms" element={<Forms />} />
+                <Route path="/forms/:id" element={<Form />} />
+              </Routes>
+            </ElementModelContext>
+          </FormContext>
+        </Router>
+      </SnackbarProvider>
     </ThemeProvider>
   );
 };

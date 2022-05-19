@@ -19,6 +19,7 @@ interface Props {
 }
 
 export interface FormValue {
+  _id?: string;
   title: string;
   fields: {
     name: string;
@@ -27,26 +28,20 @@ export interface FormValue {
     required: boolean;
     elementType: "text" | "checkbox" | "select" | "toggle";
     type: string;
+    value?: boolean | string;
     config?: {
-      value: string;
-      label: string;
-    }[];
+      options: {
+        label: string;
+        value: string;
+      }[];
+    };
   }[];
 }
 
 const FormContext = ({ children }: Props) => {
   const [form, setForm] = useState<FormValue>({
     title: "Form Name",
-    fields: [
-      {
-        id: "",
-        elementType: "text",
-        label: "Name",
-        name: "name",
-        required: true,
-        type: "text",
-      },
-    ],
+    fields: [],
   });
 
   return (

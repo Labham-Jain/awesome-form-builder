@@ -1,0 +1,29 @@
+.card-box {
+  height: max-content;
+}
+.card-delete-btn {
+  bottom: 0 !important;
+  top: unset !important;
+  transform: translate(50%, 50%) !important;
+}
+.card-btn {
+  opacity: 0;
+  pointer-events: none;
+  transition: all 0.2s ease 0.1s !important;
+  position: absolute !important;
+  right: 0 !important;
+  min-width: unset !important;
+  width: 40px;
+  height: 40px;
+  z-index: 1;
+  border-radius: 50% !important;
+}
+.card-share-btn {
+  top: 0;
+  transform: translate(50%, -50%);
+}
+.card-box:hover > .card-delete-btn,
+.card-box:hover > .card-share-btn {
+  opacity: 1;
+  pointer-events: all;
+}
