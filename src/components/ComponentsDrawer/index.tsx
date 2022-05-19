@@ -7,6 +7,7 @@ import {
   Texture,
   ExpandMore,
   Key,
+  ToggleOn,
 } from "@mui/icons-material";
 import {
   Box,
@@ -24,7 +25,6 @@ import {
   ElementModelCtx,
   ElementTypes,
 } from "../../Context/ElementModelContext";
-import { ToggleOn } from "@mui/icons-material";
 
 const drawerWidth = 240;
 

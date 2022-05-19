@@ -34,7 +34,7 @@ const Form = () => {
       const response = await (await API.get(`form/${param.id}`)).json();
       setForm(response.data);
     })();
-  }, []);
+  }, [param.id]);
 
   return (
     <Box
@@ -109,10 +109,10 @@ const Form = () => {
               ) : null}
               {element.elementType === "toggle" ? (
                 <FormControlLabel
-                control={<Switch defaultChecked={element.value === true} />}
-                name={element.name}
-                label={element.label}
-              />
+                  control={<Switch defaultChecked={element.value === true} />}
+                  name={element.name}
+                  label={element.label}
+                />
               ) : null}
             </Box>
           ))}

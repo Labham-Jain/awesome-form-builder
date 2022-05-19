@@ -23,18 +23,18 @@ type ValuePair = {
 };
 
 const FormElements = ({ element, valueType }: Props) => {
-  const { handleSubmit, control, register } = useForm({mode: 'onChange'});
+  const { handleSubmit, control, register } = useForm({ mode: "onChange" });
   const { setForm } = useContext(FormCtx);
   const onSubmit = (data: any) => {
     const options: { [x: string]: ValuePair }[] = data.config?.options;
-    
+
     const newConfig: FormValue["fields"][0]["config"] = {
       options: [],
     };
 
-    if(options){
+    if (options) {
       const keys = Object.keys(options);
-  
+
       keys.forEach((key) => {
         // @ts-ignore
         const option: ValuePair = options[key];
@@ -78,8 +78,8 @@ const FormElements = ({ element, valueType }: Props) => {
             rules={{
               pattern: {
                 value: /^[\d]*[a-z_][a-z\d_]*$/g,
-                message: "Only a-z, 0-9, _ are allowed!"
-              }
+                message: "Only a-z, 0-9, _ are allowed!",
+              },
             }}
           />
         </Box>

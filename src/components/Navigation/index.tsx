@@ -14,7 +14,7 @@ const Navigation = () => {
 
   const redirectToForms = useCallback(() => {
     navigate("/forms");
-  }, []);
+  }, [navigate]);
 
   return (
     <Box sx={{ display: "flex" }}>

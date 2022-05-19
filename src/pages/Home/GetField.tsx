@@ -11,7 +11,7 @@ import Select from "../../components/Select";
 import { FormValue } from "../../Context/FormContext";
 
 interface Props {
-  element: FormValue['fields'][0],
+  element: FormValue["fields"][0];
   removeElement: (id: string) => void;
 }
 
@@ -44,9 +44,7 @@ const GetField = ({ element, removeElement }: Props) => {
           type={element.type.toLowerCase()}
         />
       ) : null}
-      {element.elementType === "select" ? (
-        <Select element={element} />
-      ) : null}
+      {element.elementType === "select" ? <Select element={element} /> : null}
       {element.elementType === "toggle" ? (
         <FormControlLabel
           control={<Switch defaultChecked={Boolean(element.value)} />}

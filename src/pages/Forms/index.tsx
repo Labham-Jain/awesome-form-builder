@@ -145,7 +145,9 @@ const Forms = () => {
                   >
                     {element.elementType === "checkbox" ? (
                       <FormControlLabel
-                        control={<Checkbox defaultChecked={Boolean(element.value)} />}
+                        control={
+                          <Checkbox defaultChecked={Boolean(element.value)} />
+                        }
                         name={element.name}
                         label={element.label}
                         sx={{ width: "max-content" }}
@@ -167,10 +169,12 @@ const Forms = () => {
                     ) : null}
                     {element.elementType === "toggle" ? (
                       <FormControlLabel
-                      control={<Switch defaultChecked={Boolean(element.value)} />}
-                      name={element.name}
-                      label={element.label}
-                    />
+                        control={
+                          <Switch defaultChecked={Boolean(element.value)} />
+                        }
+                        name={element.name}
+                        label={element.label}
+                      />
                     ) : null}
                   </Box>
                 ))}

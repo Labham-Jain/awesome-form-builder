@@ -8,16 +8,23 @@ interface Props {
   label: string;
   type: string;
   required?: boolean;
-  rules?: ControllerProps['rules']
+  rules?: ControllerProps["rules"];
 }
 
-const Input = ({ control, tooltipText, label, type, required, rules }: Props) => {
+const Input = ({
+  control,
+  tooltipText,
+  label,
+  type,
+  required,
+  rules,
+}: Props) => {
   return (
     <Controller
       name={label.toLowerCase()}
       control={control}
       rules={rules}
-      render={({ field: { value = "", ...args }, fieldState: {error} }) => (
+      render={({ field: { value = "", ...args }, fieldState: { error } }) => (
         <TextField
           variant="outlined"
           label={label}
